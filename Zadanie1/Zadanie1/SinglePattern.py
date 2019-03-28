@@ -18,12 +18,15 @@ class SinglePattern(object):
         self.errors = []
 
         for _ in range(self.K):
-            y = 0
-            for xi, wi in zip(self.inputs, self.weights):
-                y += xi * wi
-            
+            y = self.computeSum(self.inputs, self.weights)
             self.errors.append(y)
             for idx, value in enumerate(self.weights):
                 self.weights[idx] = value + self.eta * (z - y) * self.inputs[idx]
 
         return self
+
+    def computeSum(self, inputs, weights):
+        y=0
+        for xi, wi in zip(inputs, weights):
+            y += xi * wi
+        return y
