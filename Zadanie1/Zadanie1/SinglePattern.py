@@ -12,7 +12,7 @@ class SinglePattern(object):
         self.realNumbersPrecision = 3
 
     # desired output
-    def train(self, minWeightRange = 0, maxWeightRange = 1, minInputRange = 0, maxInputRange = 1, z = 1):
+    def train(self, minWeightRange = 0, maxWeightRange = 1, minInputRange = 0, maxInputRange = 1, expectValue = 1):
         self.weights = [round(random.uniform(minWeightRange, maxWeightRange), self.realNumbersPrecision) for _ in range(self.N)]
         self.inputs = [round(random.uniform(minInputRange, maxInputRange), self.realNumbersPrecision) for _ in range(self.N)]
         self.errors = []
@@ -21,7 +21,7 @@ class SinglePattern(object):
             y = self.computeSum(self.inputs, self.weights)
             self.errors.append(y)
             for idx, value in enumerate(self.weights):
-                self.weights[idx] = value + self.eta * (z - y) * self.inputs[idx]
+                self.weights[idx] = value + self.eta * (expectValue - y) * self.inputs[idx]
 
         return self
 
