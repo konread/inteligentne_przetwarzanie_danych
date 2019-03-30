@@ -14,7 +14,7 @@ class SinglePattern(object):
     # desired output
     def train(self, minWeightRange = 0, maxWeightRange = 1, minInputRange = 0, maxInputRange = 1, expectValue = 1):
         self.weights = [round(random.uniform(minWeightRange, maxWeightRange), self.realNumbersPrecision) for _ in range(self.N)]
-        self.inputs = [round(random.uniform(minInputRange, maxInputRange), self.realNumbersPrecision) for _ in range(self.N)]
+        self.inputs = [round(expectValue*random.uniform(minInputRange, maxInputRange), self.realNumbersPrecision) for _ in range(self.N)]
         self.errors = []
 
         for _ in range(self.K):
