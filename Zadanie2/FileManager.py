@@ -12,7 +12,7 @@ class FileManager(object):
             self.numberOfTrainingPatterns = int(file.readline())
             self.verticalResolution = int(file.readline())
             self.horizontalResolution = int(file.readline())
-            self.signsWithMatrices = []
+            self.signsWithPatterns = []
 
             for _ in range(self.numberOfTrainingPatterns):
                 sign = str(file.readline().rstrip('\n'))
@@ -20,7 +20,7 @@ class FileManager(object):
                 for _ in range(self.verticalResolution):
                     line = str(file.readline().rstrip('\n'))
                     pattern.extend(self.decode(line))
-                self.signsWithMatrices.append(tuple([sign, pattern]))
+                self.signsWithPatterns.append(tuple([sign, pattern]))
 
         return self
 
