@@ -26,8 +26,8 @@ class GeneticAlgorithm(object):
         plt.plot(x_axis_value, y_axis_value)
         plt.show()
 
-    def count_chromosome_bits_number(self, precision):
-        subintervals = int((self.right_value_range_b - self.left_value_range_a) * (10**precision))
+    def count_chromosome_bits_number(self):
+        subintervals = int((self.right_value_range_b - self.left_value_range_a) * (10**self.precision))
 
         exponent = 1
         for exponent_temp in range(1, self.max_chromosome_number):
@@ -91,8 +91,8 @@ class GeneticAlgorithm(object):
 
         return new_population
 
-    def create_new_population(self, pop_size, precision):
-        chromosome_bits_number = self.count_chromosome_bits_number(precision)
+    def create_new_population(self, pop_size):
+        chromosome_bits_number = self.count_chromosome_bits_number()
         chromosomes = []
 
         for _ in range(1, pop_size+1):
@@ -136,8 +136,10 @@ class GeneticAlgorithm(object):
                 idx = index
         return idx, value
 
-    def perform(self, new_population, pc, pm, epochs):
+    def perform(self, pop_size, pc, pm, epochs):
         values = []
+        new_population = self.create_new_population(pop_size)
+
         for i in range(1, epochs):
             new_population = self.rule_method(new_population)
             self.perform_crossbreeding(new_population, pc)
@@ -145,7 +147,12 @@ class GeneticAlgorithm(object):
             values.append(self.eval_function(new_population))
 
         idx, value = self.find_max_with_idx(values)
-        print("W pokoleniu " + str(idx) + " pojawil sie najlepszy chromosom Xmax = " + str(value))
+        str_value = '{:.3f}'.format(value)
+        caption = "W pokoleniu " + str(idx) + " pojawil sie najlepszy chromosom Xmax = " + str_value
 
-        plt.plot(values)
+        fig, axs = plt.subplots(1, 1, constrained_layout=True)
+        axs.plot(values)
+        axs.set_title(caption)
+        axs.set_xlabel('Numer Epoki')
+        axs.set_ylabel('Xmax najlepszego chromosomu')
         plt.show()

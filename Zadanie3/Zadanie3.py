@@ -22,6 +22,4 @@ if __name__ == '__main__':
 
     genetic = GeneticAlgorithm(function2, a, b, precision)
     #genetic.draw_basic_function()
-    new_population = genetic.create_new_population(pop_size, precision)
-    genetic.perform(new_population, pc, pm, epochs)
-
+    genetic.perform(pop_size, pc, pm, epochs)
